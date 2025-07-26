@@ -48,6 +48,9 @@ function HomePage({ onNavigate }) {
           <p className="text-gray-600 text-sm font-medium">
             Made by ❤️ + 🤖 by <a href="https://orozcoding.dev" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">@orozCoding</a>
           </p>
+          <p className="text-gray-500 text-xs mt-2 leading-relaxed">
+            Guía no oficial para el juego móvil Venezolario. Aprende sobre palabras, jerga y modismos de Venezuela.
+          </p>
         </div>
       </div>
     </div>
