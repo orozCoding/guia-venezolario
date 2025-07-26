@@ -15,21 +15,30 @@ function WordLookup({ onBack }) {
     setResult('')
 
     try {
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + import.meta.env.VITE_GEMINI_API_KEY, {
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-goog-api-key': import.meta.env.VITE_GEMINI_API_KEY,
         },
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Explica el significado de la palabra venezolana "${word}". Incluye:
+              text: `
+              
+              Estoy jugando Venezolario, un juego que pone a prueba cuantas palabras usadas en Venezuela conoces. El juego te dice una frase o te da una o más pistas, y debes adivinar la palabra que esté relacionada.
+
+              Este juego a veces es controversial porque las personas, venezolanas, no conocen algunas de las palabras. En mi caso, no entiendo la palabra "${word}"
+
+              Explica el significado de la palabra en el contexto de jerga venezolana.
               1. Definición clara y concisa
               2. Contexto de uso en Venezuela
               3. Origen o historia si es relevante
-              4. Ejemplos de uso en oraciones
+              4. En qué ciudades, estados o regiones de Venezuela se usa
+              5. Ejemplos de uso en oraciones
+              6. Es MUY posible que en diferentes contextos o regiones la palabra se use de manera diferente, así que es tu deber explicar el significado de la palabra en cada contexto o región posible, repitiendo los items de arriba,
               
-              Responde en español de forma educativa y amigable.`
+              Responde en español de forma educativa y amigable, sin mencionar los títulos o items de la lista anterior. No saludes, no digas Hola.`
             }]
           }]
         })
@@ -111,7 +120,7 @@ function WordLookup({ onBack }) {
         {result && (
           <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-lg animate-fade-in">
             <h3 className="text-lg font-semibold text-green-800 mb-3">
-              Explicación de "{word}"
+              "{word}"
             </h3>
             <div className="text-green-700 whitespace-pre-wrap leading-relaxed">
               {result}

@@ -44,24 +44,31 @@ function WordGuess({ onBack }) {
     try {
       const hintsText = validHints.map((hint, i) => `${i + 1}. ${hint}`).join('\n')
       
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + import.meta.env.VITE_GEMINI_API_KEY, {
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-goog-api-key': import.meta.env.VITE_GEMINI_API_KEY,
         },
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Necesito ayuda con un juego de palabras venezolanas. Basándote en las siguientes pistas, sugiere exactamente 5 palabras venezolanas que tengan ${letterCount} letras:
+              text: `Estoy jugando Venezolario, un juego que pone a prueba cuantas palabras usadas en Venezuela conoces. El juego te dice una frase o te da una o más pistas, y debes adivinar la palabra que esté relacionada. Es posible ver el número de letras. Estoy estancado en una palabra que no logro descifrar.
 
-Pistas:
-${hintsText}
+
+
+Las pistas son: ${hintsText}
+
+
+
+La palabra tiene ${letterCount} letras
 
 IMPORTANTE: 
 - Solo palabras típicamente venezolanas (modismos, comida, objetos, expresiones)
-- Exactamente ${letterCount} letras cada palabra
-- Responde SOLO con una lista numerada de 5 palabras, sin explicaciones adicionales
+- Responde SOLO con una lista numerada de palabras, sin explicaciones adicionales
+- No hay limite de cuantas palabras, pero tienen que estar relacionadas. Intenta incluir al menos 3 palabras.
 - Una palabra por línea en este formato: "1. palabra"
+- El orden de las palabras debería ser de mayor a menor posibilidad
 
 Respuesta:`
             }]
