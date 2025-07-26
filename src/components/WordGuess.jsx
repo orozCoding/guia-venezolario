@@ -40,7 +40,7 @@ function WordGuess() {
     setTimeout(() => setCopiedWord(''), 2000) // Hide notification after 2 seconds
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, requestMoreWords = false) => {
     e.preventDefault()
     const validHints = hints.filter(hint => hint.trim())
     
@@ -48,10 +48,46 @@ function WordGuess() {
 
     setLoading(true)
     setError('')
-    setSuggestions([])
+    if (!requestMoreWords) {
+      setSuggestions([])
+    }
 
     try {
       const hintsText = validHints.map((hint, i) => `${i + 1}. ${hint}`).join('\n')
+      
+      // Build prompt based on whether it's a new search or requesting more words
+      let promptText = `Estoy jugando Venezolario, un juego que pone a prueba cuantas palabras usadas en Venezuela conoces. El juego te dice una frase o te da una o más pistas, y debes adivinar la palabra que esté relacionada. Es posible ver el número de letras. Estoy estancado en una palabra que no logro descifrar.
+
+Las pistas son: ${hintsText}
+
+La palabra tiene ${letterCount} letras`
+
+      if (requestMoreWords && suggestions.length > 0) {
+        const currentWords = suggestions.join(', ')
+        promptText += `
+
+Ya me sugeriste estas palabras: ${currentWords}
+
+Por favor, dame MÁS palabras diferentes que no hayas mencionado antes.`
+      }
+
+      promptText += `
+
+IMPORTANTE: 
+- Solo palabras típicamente venezolanas (modismos, comida, objetos, expresiones)
+- Responde SOLO con una lista numerada de palabras, sin explicaciones adicionales
+- No hay limite de cuantas palabras, pero tienen que estar relacionadas. Intenta incluir al menos 3 palabras.
+- Una palabra por línea en este formato: "1. palabra"
+- El orden de las palabras debería ser de mayor a menor posibilidad`
+
+      if (requestMoreWords) {
+        promptText += `
+- NO repitas las palabras que ya mencionaste antes`
+      }
+
+      promptText += `
+
+Respuesta:`
       
       const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', {
         method: 'POST',
@@ -62,20 +98,7 @@ function WordGuess() {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Estoy jugando Venezolario, un juego que pone a prueba cuantas palabras usadas en Venezuela conoces. El juego te dice una frase o te da una o más pistas, y debes adivinar la palabra que esté relacionada. Es posible ver el número de letras. Estoy estancado en una palabra que no logro descifrar.
-
-Las pistas son: ${hintsText}
-
-La palabra tiene ${letterCount} letras
-
-IMPORTANTE: 
-- Solo palabras típicamente venezolanas (modismos, comida, objetos, expresiones)
-- Responde SOLO con una lista numerada de palabras, sin explicaciones adicionales
-- No hay limite de cuantas palabras, pero tienen que estar relacionadas. Intenta incluir al menos 3 palabras.
-- Una palabra por línea en este formato: "1. palabra"
-- El orden de las palabras debería ser de mayor a menor posibilidad
-
-Respuesta:`
+              text: promptText
             }]
           }]
         })
@@ -94,7 +117,13 @@ Respuesta:`
           .filter(word => word.length > 0)
           .slice(0, 5)
         
-        setSuggestions(words)
+        if (requestMoreWords) {
+          // Add new words to existing suggestions
+          setSuggestions(prev => [...prev, ...words])
+        } else {
+          // Replace with new suggestions
+          setSuggestions(words)
+        }
       } else {
         throw new Error('No se pudieron obtener sugerencias')
       }
@@ -104,6 +133,10 @@ Respuesta:`
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleMoreWords = (e) => {
+    handleSubmit(e, true)
   }
 
   return (
@@ -267,6 +300,27 @@ Respuesta:`
                   )}
                 </div>
               ))}
+              
+              {/* More words button */}
+              {suggestions.length > 0 && (
+                <button
+                  onClick={handleMoreWords}
+                  disabled={loading}
+                  className="w-full p-4 bg-gradient-to-b from-blue-400 to-blue-600 hover:from-blue-300 hover:to-blue-500 disabled:from-gray-400 disabled:to-gray-600 text-white font-bold rounded-xl shadow-[0_4px_0_#1e40af] hover:shadow-[0_2px_0_#1e40af] active:shadow-[0_1px_0_#1e40af] disabled:shadow-[0_4px_0_#6b7280] transform hover:-translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-blue-300 disabled:border-gray-300"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center space-x-3">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Buscando más...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-2">
+                      <span>🔍</span>
+                      <span>Más palabras</span>
+                    </div>
+                  )}
+                </button>
+              )}
             </div>
           </div>
         )}
