@@ -5,6 +5,7 @@ import PageTitle from './PageTitle'
 
 function WordLookup() {
   const [word, setWord] = useState('')
+  const [resultWord, setResultWord] = useState('')
   const [result, setResult] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -51,6 +52,7 @@ function WordLookup() {
       
       if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
         setResult(data.candidates[0].content.parts[0].text)
+        setResultWord(word) // Save the word that was searched
       } else {
         throw new Error('No se pudo obtener una explicación')
       }
@@ -132,7 +134,7 @@ function WordLookup() {
             <div className="flex items-center space-x-3 mb-6">
               <span className="text-2xl">💡</span>
               <h3 className="text-xl font-bold text-gray-800">
-                "{word}"
+                "{resultWord}"
               </h3>
             </div>
             <div className="text-gray-700 prose prose-gray max-w-none">
