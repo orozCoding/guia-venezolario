@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import HomePage from './components/HomePage'
 import WordLookup from './components/WordLookup'
 import WordGuess from './components/WordGuess'
@@ -6,6 +6,18 @@ import BackButton from './components/BackButton'
 
 function App() {
   const [currentView, setCurrentView] = useState('home')
+
+  // Handle PWA shortcuts from manifest.json
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const action = urlParams.get('action')
+    
+    if (action === 'lookup') {
+      setCurrentView('lookup')
+    } else if (action === 'guess') {
+      setCurrentView('guess')
+    }
+  }, [])
 
   const handleNavigate = (view) => {
     setCurrentView(view)
