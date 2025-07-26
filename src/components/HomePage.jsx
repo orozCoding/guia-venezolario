@@ -4,7 +4,7 @@ function HomePage({ onNavigate }) {
       {/* Header with Venezuelan vibes */}
       <div className="mb-12 animate-bounce-in">
         <div className="relative mb-6">
-          <h1 className="text-5xl sm:text-6xl text-white font-extrabold mb-4 drop-shadow-2xl">
+          <h1 className="text-5xl sm:text-6xl text-white font-extrabold mb-4 drop-shadow-2xl text-red-200">
             Guía Venezolario
           </h1>
           <div className="absolute -top-2 -right-2 text-2xl animate-bounce">🇻🇪</div>
