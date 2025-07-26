@@ -46,7 +46,7 @@ function HomePage({ onNavigate }) {
         {/* Footer Section */}
         <div className="pt-4">
           <p className="text-gray-600 text-sm font-medium">
-            Hecho con ❤️ para todos los panas venezolanos
+            Made by ❤️ + 🤖 by <a href="https://orozcoding.dev" className="text-blue-600 hover:underline">@orozCoding</a>
           </p>
         </div>
       </div>
