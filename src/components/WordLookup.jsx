@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import Mascot from './Mascot'
 import PageTitle from './PageTitle'
 
-function WordLookup({ onBack }) {
+function WordLookup() {
   const [word, setWord] = useState('')
   const [result, setResult] = useState('')
   const [loading, setLoading] = useState(false)
@@ -63,14 +63,7 @@ function WordLookup({ onBack }) {
   }
 
   return (
-    <div className="min-h-screen px-2 py-8 relative">
-      {/* Floating Back Button */}
-      <button
-        onClick={onBack}
-        className="fixed top-6 left-6 z-50 bg-white/80 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 font-medium py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-sm border border-gray-200"
-      >
-        ← Volver
-      </button>
+    <div className="min-h-screen px-2 py-8">
       
       <div className="w-full max-w-md mx-auto space-y-8 pt-4">{/* Added pt-4 for spacing */}
         {/* Header Section */}

@@ -2,18 +2,36 @@ import { useState } from 'react'
 import HomePage from './components/HomePage'
 import WordLookup from './components/WordLookup'
 import WordGuess from './components/WordGuess'
+import BackButton from './components/BackButton'
 
 function App() {
   const [currentView, setCurrentView] = useState('home')
 
+  const handleNavigate = (view) => {
+    setCurrentView(view)
+    window.scrollTo(0, 0)
+  }
+
   const renderView = () => {
     switch (currentView) {
       case 'lookup':
-        return <WordLookup onBack={() => setCurrentView('home')} />
+        return (
+          <div key="lookup" className="animate-fade-in">
+            <WordLookup />
+          </div>
+        )
       case 'guess':
-        return <WordGuess onBack={() => setCurrentView('home')} />
+        return (
+          <div key="guess" className="animate-fade-in">
+            <WordGuess />
+          </div>
+        )
       default:
-        return <HomePage onNavigate={setCurrentView} />
+        return (
+          <div key="home" className="animate-fade-in">
+            <HomePage onNavigate={handleNavigate} />
+          </div>
+        )
     }
   }
 
@@ -40,8 +58,18 @@ function App() {
         }}></div>
       </div>
       
+      {/* Floating Back Button - Outside transitions */}
+      {currentView !== 'home' && (
+        <BackButton onClick={() => {
+          setCurrentView('home')
+          window.scrollTo(0, 0)
+        }} />
+      )}
+      
       <div className="relative z-10 px-4 py-4">
-        {renderView()}
+        <div className="transition-all duration-300 ease-in-out">
+          {renderView()}
+        </div>
       </div>
     </div>
   )

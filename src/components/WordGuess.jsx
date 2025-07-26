@@ -2,12 +2,13 @@ import { useState } from 'react'
 import Mascot from './Mascot'
 import PageTitle from './PageTitle'
 
-function WordGuess({ onBack }) {
+function WordGuess() {
   const [hints, setHints] = useState([''])
   const [letterCount, setLetterCount] = useState(5)
   const [suggestions, setSuggestions] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [copiedWord, setCopiedWord] = useState('')
 
   const addHint = () => {
     setHints([...hints, ''])
@@ -31,6 +32,12 @@ function WordGuess({ onBack }) {
 
   const decrementLetters = () => {
     setLetterCount(prev => Math.max(prev - 1, 1))
+  }
+
+  const handleCopyWord = (word) => {
+    navigator.clipboard.writeText(word)
+    setCopiedWord(word)
+    setTimeout(() => setCopiedWord(''), 2000) // Hide notification after 2 seconds
   }
 
   const handleSubmit = async (e) => {
@@ -100,14 +107,7 @@ Respuesta:`
   }
 
   return (
-    <div className="min-h-screen px-2 py-8 relative">
-      {/* Floating Back Button */}
-      <button
-        onClick={onBack}
-        className="fixed top-6 left-6 z-50 bg-white/80 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 font-medium py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-sm border border-gray-200"
-      >
-        ← Volver
-      </button>
+    <div className="min-h-screen px-2 py-8">
       
       <div className="w-full max-w-md mx-auto space-y-8 pt-4">{/* Added pt-4 for spacing */}
 
@@ -243,8 +243,8 @@ Respuesta:`
               {suggestions.map((word, index) => (
                 <div
                   key={index}
-                  onClick={() => navigator.clipboard.writeText(word)}
-                  className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border-2 border-gray-200 cursor-pointer transition-all duration-150 active:scale-95"
+                  onClick={() => handleCopyWord(word)}
+                  className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border-2 border-gray-200 cursor-pointer transition-all duration-150 active:scale-95 relative"
                   title={`Tocar para copiar: ${word}`}
                 >
                   <div className="flex items-center space-x-3">
@@ -258,6 +258,13 @@ Respuesta:`
                   <div className="text-gray-400 text-lg">
                     📋
                   </div>
+                  
+                  {/* Copy notification */}
+                  {copiedWord === word && (
+                    <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
+                      ¡Copiado!
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
