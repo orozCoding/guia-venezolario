@@ -80,8 +80,8 @@ function WordLookup({ onBack }) {
             <PageTitle size="medium">
               Consultar palabra
             </PageTitle>
-            <p className="text-gray-800 font-medium text-sm leading-relaxed">
-              Escribe la palabra que no entendiste y aprende sobre ella
+            <p className="text-gray-800 font-medium text-xs leading-relaxed">
+              Escribe una palabra y aprende sobre su historia, contexto y usos en Venezuela
             </p>
           </div>
         </div>
@@ -99,7 +99,7 @@ function WordLookup({ onBack }) {
                 disabled={loading}
               />
               <p className="text-gray-700 text-sm text-center leading-relaxed">
-                Ej: conuco, jamonearse, totumo, caleta, sortario...
+                Ej: conuco, totumo, caleta, sortario...
               </p>
             </div>
 

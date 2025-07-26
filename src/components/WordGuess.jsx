@@ -119,7 +119,7 @@ Respuesta:`
               Adivinar palabra
             </PageTitle>
             <p className="text-gray-800 text-xs leading-relaxed">
-              Si eres un mal perdedor y le quieres quitar el chiste al juego, puedes escribir las pistas y encontrar sugerencias de posibles palabras
+              Si eres un mal perdedor y le quieres quitar el chiste al juego, puedes escribir las pistas y encontrar sugerencias de posibles soluciones
             </p>
           </div>
           
@@ -137,7 +137,7 @@ Respuesta:`
               <div className="space-y-4">
                 {hints.map((hint, index) => (
                   <div key={index} className="flex space-x-3 items-center">
-                    <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-b from-blue-400 to-blue-600 text-white font-bold text-sm rounded-lg shadow-[0_2px_0_#1e40af] flex-shrink-0">
+                    <div className="flex items-center justify-center w-10 h-10 bg-red-500 text-white font-bold text-sm rounded-xl shadow-[0_3px_0_#dc2626] flex-shrink-0">
                       {index + 1}
                     </div>
                     <input
@@ -145,14 +145,14 @@ Respuesta:`
                       value={hint}
                       onChange={(e) => updateHint(index, e.target.value)}
                       placeholder={`Pista ${index + 1}...`}
-                      className="flex-1 px-4 py-3 text-base font-medium text-gray-800 bg-white rounded-lg border-2 border-white shadow-[0_2px_0_#d1d5db] focus:shadow-[0_1px_0_#d1d5db] focus:translate-y-0.5 transition-all duration-150 outline-none"
+                      className="flex-1 px-4 py-3 text-base font-medium text-gray-800 bg-white rounded-xl border-2 border-gray-200 shadow-[0_3px_0_#e5e7eb] focus:border-red-300 focus:shadow-[0_2px_0_#e5e7eb] focus:translate-y-0.5 transition-all duration-150 outline-none"
                       disabled={loading}
                     />
                     {hints.length > 1 && (
                       <button
                         type="button"
                         onClick={() => removeHint(index)}
-                        className="w-10 h-10 bg-gradient-to-b from-red-400 to-red-600 hover:from-red-300 hover:to-red-500 text-white font-bold rounded-lg shadow-[0_2px_0_#dc2626] hover:shadow-[0_1px_0_#dc2626] active:shadow-[0_0px_0_#dc2626] transform hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-150 flex-shrink-0"
+                        className="w-10 h-10 bg-gray-400 hover:bg-gray-500 text-white font-bold rounded-xl shadow-[0_3px_0_#6b7280] hover:shadow-[0_2px_0_#6b7280] active:shadow-[0_1px_0_#6b7280] transform hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-150 flex-shrink-0"
                         disabled={loading}
                       >
                         ×
@@ -164,10 +164,10 @@ Respuesta:`
               <button
                 type="button"
                 onClick={addHint}
-                className="w-full bg-gradient-to-b from-green-400 to-green-600 hover:from-green-300 hover:to-green-500 text-white font-bold py-3 px-4 rounded-lg shadow-[0_3px_0_#16a34a] hover:shadow-[0_2px_0_#16a34a] active:shadow-[0_1px_0_#16a34a] transform hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-150"
+                className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-4 rounded-xl shadow-[0_3px_0_#9ca3af] hover:shadow-[0_2px_0_#9ca3af] active:shadow-[0_1px_0_#9ca3af] transform hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-150 border-2 border-gray-200"
                 disabled={loading}
               >
-                Agregar pista
+                ➕ Agregar pista
               </button>
             </div>
 
@@ -180,13 +180,13 @@ Respuesta:`
                 <button
                   type="button"
                   onClick={decrementLetters}
-                  className="w-14 h-14 bg-gradient-to-b from-orange-400 to-orange-600 hover:from-orange-300 hover:to-orange-500 disabled:from-gray-400 disabled:to-gray-600 text-white font-bold text-xl rounded-lg shadow-[0_3px_0_#ea580c] hover:shadow-[0_2px_0_#ea580c] active:shadow-[0_1px_0_#ea580c] disabled:shadow-[0_3px_0_#6b7280] transform hover:-translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150"
+                  className="w-14 h-14 bg-gray-300 hover:bg-gray-400 disabled:bg-gray-200 disabled:text-gray-400 text-gray-800 font-bold text-xl rounded-xl shadow-[0_3px_0_#9ca3af] hover:shadow-[0_2px_0_#9ca3af] active:shadow-[0_1px_0_#9ca3af] disabled:shadow-[0_3px_0_#d1d5db] transform hover:-translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-gray-200"
                   disabled={loading || letterCount <= 1}
                 >
                   −
                 </button>
-                <div className="bg-white rounded-lg px-8 py-4 shadow-[0_4px_0_#d1d5db] border-2 border-white">
-                  <div className="text-4xl font-bold text-gray-800 text-center">
+                <div className="bg-white rounded-xl px-8 py-4 shadow-[0_4px_0_#e5e7eb] border-2 border-gray-200">
+                  <div className="text-4xl font-bold text-red-500 text-center">
                     {letterCount}
                   </div>
                   <div className="text-gray-600 text-sm text-center mt-1">
@@ -196,7 +196,7 @@ Respuesta:`
                 <button
                   type="button"
                   onClick={incrementLetters}
-                  className="w-14 h-14 bg-gradient-to-b from-orange-400 to-orange-600 hover:from-orange-300 hover:to-orange-500 disabled:from-gray-400 disabled:to-gray-600 text-white font-bold text-xl rounded-lg shadow-[0_3px_0_#ea580c] hover:shadow-[0_2px_0_#ea580c] active:shadow-[0_1px_0_#ea580c] disabled:shadow-[0_3px_0_#6b7280] transform hover:-translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150"
+                  className="w-14 h-14 bg-gray-300 hover:bg-gray-400 disabled:bg-gray-200 disabled:text-gray-400 text-gray-800 font-bold text-xl rounded-xl shadow-[0_3px_0_#9ca3af] hover:shadow-[0_2px_0_#9ca3af] active:shadow-[0_1px_0_#9ca3af] disabled:shadow-[0_3px_0_#d1d5db] transform hover:-translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-gray-200"
                   disabled={loading || letterCount >= 20}
                 >
                   +
@@ -204,19 +204,19 @@ Respuesta:`
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit Button - Main CTA */}
             <button
               type="submit"
               disabled={loading || hints.every(hint => !hint.trim())}
-              className="w-full bg-gradient-to-b from-blue-400 to-blue-600 hover:from-blue-300 hover:to-blue-500 disabled:from-gray-400 disabled:to-gray-600 text-white font-bold py-5 px-6 rounded-xl shadow-[0_6px_0_#1e40af] hover:shadow-[0_4px_0_#1e40af] active:shadow-[0_2px_0_#1e40af] disabled:shadow-[0_6px_0_#6b7280] transform hover:-translate-y-1 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-blue-300 disabled:border-gray-300"
+              className="w-full bg-gradient-to-b from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 disabled:from-gray-300 disabled:to-gray-400 text-gray-900 disabled:text-gray-500 font-bold py-6 px-6 rounded-xl shadow-[0_6px_0_#ca8a04] hover:shadow-[0_4px_0_#ca8a04] active:shadow-[0_2px_0_#ca8a04] disabled:shadow-[0_6px_0_#9ca3af] transform hover:-translate-y-1 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-yellow-300 disabled:border-gray-200 text-xl"
             >
               {loading ? (
                 <div className="flex items-center justify-center space-x-3">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-700"></div>
                   <span className="text-lg">Pensando... 🧠</span>
                 </div>
               ) : (
-                <span className="text-lg font-bold">¡Dame las respuestas! 🔮</span>
+                <span className="font-bold">¡Dame las respuestas! 🫣</span>
               )}
             </button>
           </form>
@@ -237,32 +237,26 @@ Respuesta:`
 
         {/* Results Section */}
         {suggestions.length > 0 && (
-          <div className="bg-white rounded-xl shadow-[0_6px_0_#d1d5db] border-4 border-white p-6">
-            <div className="flex items-center space-x-3 mb-6">
-              <span className="text-2xl">🎉</span>
-              <div>
-                <h3 className="text-xl font-bold text-gray-800">
-                  ¡Posibles respuestas!
-                </h3>
-                <p className="text-gray-600 text-sm">Palabras de {letterCount} letras</p>
-              </div>
-            </div>
-            <div className="space-y-4">
+          <div className="bg-white rounded-xl shadow-[0_6px_0_#e5e7eb] border-2 border-gray-200 p-6">
+            <div class="w-full text-center font-bold text-lg mb-4"> 🤖 ¡Posibles respuestas! 🤖</div>
+            <div className="space-y-3">
               {suggestions.map((word, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-b from-purple-300 to-purple-500 hover:from-purple-200 hover:to-purple-400 p-4 rounded-lg text-center shadow-[0_4px_0_#7c3aed] hover:shadow-[0_2px_0_#7c3aed] transform hover:-translate-y-1 transition-all duration-150 cursor-pointer border-2 border-purple-200"
+                  onClick={() => navigator.clipboard.writeText(word)}
+                  className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-xl border-2 border-gray-200 cursor-pointer transition-all duration-150 active:scale-95"
+                  title={`Tocar para copiar: ${word}`}
                 >
-                  <span className="text-lg font-bold text-white uppercase tracking-wide">
-                    {word}
-                  </span>
-                  <div className="flex justify-center items-center space-x-2 mt-2">
-                    <span className="text-xs text-white/80">#{index + 1}</span>
-                    <div className="flex space-x-1">
-                      {[...Array(Math.max(1, 5 - index))].map((_, i) => (
-                        <div key={i} className="w-1 h-1 bg-white rounded-full"></div>
-                      ))}
-                    </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="flex items-center justify-center w-8 h-8 bg-red-500 text-white font-bold text-sm rounded-full">
+                      {index + 1}
+                    </span>
+                    <span className="text-lg font-bold text-gray-800 uppercase tracking-wide">
+                      {word}
+                    </span>
+                  </div>
+                  <div className="text-gray-400 text-lg">
+                    📋
                   </div>
                 </div>
               ))}

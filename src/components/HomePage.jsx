@@ -37,7 +37,7 @@ function HomePage({ onNavigate }) {
               <div className="text-4xl">🎯</div>
               <span className="text-xl font-bold">Adivinar palabra</span>
               <span className="text-sm text-blue-100 opacity-90 leading-relaxed">
-                Incluye pistas y te ayudaré a resolver la palabra
+                Ayuda a resolver una palabra o nivel
               </span>
             </div>
           </button>
