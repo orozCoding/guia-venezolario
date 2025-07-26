@@ -17,6 +17,37 @@ function App() {
     } else if (action === 'guess') {
       setCurrentView('guess')
     }
+
+    // PWA install prompt handling
+    let deferredPrompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault()
+      deferredPrompt = e
+      console.log('PWA: Install prompt available')
+      
+      // Show custom install button after 10 seconds
+      setTimeout(() => {
+        if (deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
+          const installBtn = document.createElement('div')
+          installBtn.innerHTML = `
+            <div style="position: fixed; bottom: 20px; right: 20px; background: #fbbf24; color: black; padding: 12px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000; font-family: system-ui;">
+              📱 Instalar App
+            </div>
+          `
+          installBtn.onclick = () => {
+            deferredPrompt.prompt()
+            deferredPrompt.userChoice.then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('PWA: User accepted install')
+              }
+              deferredPrompt = null
+              installBtn.remove()
+            })
+          }
+          document.body.appendChild(installBtn)
+        }
+      }, 10000) // Show after 10 seconds
+    })
   }, [])
 
   const handleNavigate = (view) => {
