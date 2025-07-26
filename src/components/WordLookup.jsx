@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import Mascot from './Mascot'
+import PageTitle from './PageTitle'
 
 function WordLookup({ onBack }) {
   const [word, setWord] = useState('')
@@ -62,104 +63,105 @@ function WordLookup({ onBack }) {
   }
 
   return (
-    <div className="max-w-md mx-auto px-4 py-6">
-      {/* 3D Back Button */}
+    <div className="min-h-screen px-2 py-8 relative">
+      {/* Floating Back Button */}
       <button
         onClick={onBack}
-        className="mb-6 bg-gradient-to-b from-gray-400 to-gray-600 hover:from-gray-300 hover:to-gray-500 text-white font-bold py-2 px-4 rounded-xl shadow-[0_4px_0_#4b5563] hover:shadow-[0_2px_0_#4b5563] active:shadow-[0_1px_0_#4b5563] transform hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-150"
+        className="fixed top-6 left-6 z-50 bg-white/80 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 font-medium py-2 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-sm border border-gray-200"
       >
         ← Volver
       </button>
-
-      {/* 3D Gaming Header */}
-      <div className="text-center mb-6">
-        <div className="text-5xl mb-2">🔍</div>
-        <h2 className="text-3xl font-bold text-blue-600 drop-shadow-[0_4px_0_rgba(0,0,0,0.8)] mb-2">
-          Consulta una palabra
-        </h2>
-        <p className="text-gray-800 font-medium">
-          Escribe la palabra que no entendiste...
-        </p>
-      </div>
-
-      {/* Look Mascot */}
-      <div className="text-center mb-6">
-        <Mascot type="look" />
-      </div>
-
-      {/* 3D Gaming Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <input
-            type="text"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-            placeholder="Escribe la palabra aquí..."
-            className="w-full px-4 py-3 text-lg font-bold text-gray-800 bg-white rounded-xl border-4 border-white shadow-[0_4px_0_#d1d5db] focus:shadow-[0_2px_0_#d1d5db] focus:translate-y-0.5 transition-all duration-150 outline-none"
-            disabled={loading}
-          />
-          <p className="text-gray-700 text-sm mt-2 text-center">
-            Ej: conuco, jamonearse, totumo, caleta, sortario...
-          </p>
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading || !word.trim()}
-          className="w-full bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-300 hover:to-yellow-500 disabled:from-gray-400 disabled:to-gray-600 text-white font-bold py-4 px-6 rounded-xl shadow-[0_6px_0_#ca8a04] hover:shadow-[0_4px_0_#ca8a04] active:shadow-[0_2px_0_#ca8a04] disabled:shadow-[0_6px_0_#6b7280] transform hover:-translate-y-1 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-yellow-300 disabled:border-gray-300"
-        >
-          {loading ? (
-            <div className="flex items-center justify-center space-x-2">
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-              <span>Buscando...</span>
-            </div>
-          ) : (
-            <span className="text-lg">¡Buscar! 🤖</span>
-          )}
-        </button>
-      </form>
-
-      {/* 3D Error State */}
-      {error && (
-        <div className="mt-6 bg-gradient-to-b from-red-400 to-red-600 text-white p-4 rounded-xl shadow-[0_4px_0_#dc2626] border-2 border-red-300">
-          <div className="flex items-center space-x-2">
-            <span className="text-xl">😵</span>
-            <div>
-              <p className="font-bold">¡Oops! Algo salió mal</p>
-              <p className="text-sm opacity-90">{error}</p>
-            </div>
+      
+      <div className="w-full max-w-md mx-auto space-y-8 pt-4">{/* Added pt-4 for spacing */}
+        {/* Header Section */}
+        <div className="text-center">
+          <div className="space-y-2">
+            <Mascot type="look" />
+            <PageTitle size="medium">
+              Consultar palabra
+            </PageTitle>
+            <p className="text-gray-800 font-medium text-sm leading-relaxed">
+              Escribe la palabra que no entendiste y aprende sobre ella
+            </p>
           </div>
         </div>
-      )}
 
-      {/* 3D Result Card */}
-      {result && (
-        <div className="mt-6 bg-white rounded-xl shadow-[0_6px_0_#d1d5db] border-4 border-white p-4">
-          <div className="flex items-center space-x-2 mb-3">
-            <span className="text-2xl">💡</span>
-            <h3 className="text-xl font-bold text-gray-800">
-              "{word}"
-            </h3>
-          </div>
-          <div className="text-gray-700 prose prose-gray max-w-none">
-            <ReactMarkdown 
-              components={{
-                h1: ({children}) => <h1 className="text-xl font-bold text-gray-800 mb-2">{children}</h1>,
-                h2: ({children}) => <h2 className="text-lg font-bold text-gray-800 mb-2 mt-3">{children}</h2>,
-                h3: ({children}) => <h3 className="text-base font-bold text-gray-800 mb-1 mt-2">{children}</h3>,
-                p: ({children}) => <p className="text-sm mb-2 leading-relaxed">{children}</p>,
-                strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
-                em: ({children}) => <em className="italic text-gray-800">{children}</em>,
-                ul: ({children}) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                ol: ({children}) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
-                li: ({children}) => <li className="text-sm">{children}</li>,
-              }}
+        {/* Form Section */}
+        <div className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-3">
+              <input
+                type="text"
+                value={word}
+                onChange={(e) => setWord(e.target.value)}
+                placeholder="Escribe la palabra aquí..."
+                className="w-full px-5 py-4 text-lg font-bold text-gray-800 bg-white rounded-xl border-4 border-white shadow-[0_4px_0_#d1d5db] focus:shadow-[0_2px_0_#d1d5db] focus:translate-y-0.5 transition-all duration-150 outline-none"
+                disabled={loading}
+              />
+              <p className="text-gray-700 text-sm text-center leading-relaxed">
+                Ej: conuco, jamonearse, totumo, caleta, sortario...
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || !word.trim()}
+              className="w-full bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-300 hover:to-yellow-500 disabled:from-gray-400 disabled:to-gray-600 text-white font-bold py-5 px-6 rounded-xl shadow-[0_6px_0_#ca8a04] hover:shadow-[0_4px_0_#ca8a04] active:shadow-[0_2px_0_#ca8a04] disabled:shadow-[0_6px_0_#6b7280] transform hover:-translate-y-1 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-yellow-300 disabled:border-gray-300"
             >
-              {result}
-            </ReactMarkdown>
-          </div>
+              {loading ? (
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <span className="text-lg">Buscando...</span>
+                </div>
+              ) : (
+                <span className="text-lg font-bold">¡Buscar! 🤖</span>
+              )}
+            </button>
+          </form>
         </div>
-      )}
+
+        {/* Error Section */}
+        {error && (
+          <div className="bg-gradient-to-b from-red-400 to-red-600 text-white p-5 rounded-xl shadow-[0_4px_0_#dc2626] border-2 border-red-300">
+            <div className="flex items-center space-x-3">
+              <span className="text-2xl">😵</span>
+              <div className="space-y-1">
+                <p className="font-bold text-base">¡Oops! Algo salió mal</p>
+                <p className="text-sm opacity-90 leading-relaxed">{error}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Result Section */}
+        {result && (
+          <div className="bg-white rounded-xl shadow-[0_6px_0_#d1d5db] border-4 border-white p-6">
+            <div className="flex items-center space-x-3 mb-6">
+              <span className="text-2xl">💡</span>
+              <h3 className="text-xl font-bold text-gray-800">
+                "{word}"
+              </h3>
+            </div>
+            <div className="text-gray-700 prose prose-gray max-w-none">
+              <ReactMarkdown 
+                components={{
+                  h1: ({children}) => <h1 className="text-xl font-bold text-gray-800 mb-4">{children}</h1>,
+                  h2: ({children}) => <h2 className="text-lg font-bold text-gray-800 mb-3 mt-6">{children}</h2>,
+                  h3: ({children}) => <h3 className="text-base font-bold text-gray-800 mb-2 mt-4">{children}</h3>,
+                  p: ({children}) => <p className="text-base mb-4 leading-relaxed">{children}</p>,
+                  strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
+                  em: ({children}) => <em className="italic text-gray-800">{children}</em>,
+                  ul: ({children}) => <ul className="list-disc pl-6 mb-4 space-y-2">{children}</ul>,
+                  ol: ({children}) => <ol className="list-decimal pl-6 mb-4 space-y-2">{children}</ol>,
+                  li: ({children}) => <li className="text-base leading-relaxed">{children}</li>,
+                }}
+              >
+                {result}
+              </ReactMarkdown>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

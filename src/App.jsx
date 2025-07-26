@@ -22,7 +22,7 @@ function App() {
       {/* Background Image */}
       <div className="fixed inset-0">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-fixed opacity-20"
+          className="absolute inset-0 bg-cover bg-center bg-fixed opacity-10"
           style={{
             backgroundImage: 'url(/background.png)'
           }}

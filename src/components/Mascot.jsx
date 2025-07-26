@@ -27,7 +27,7 @@ function Mascot({ type }) {
 
   return (
     <div className="w-full text-center flex items-center justify-center">
-      <div className="w-40">
+      <div className="w-40 -my-8">
         <img 
           src={getMascotImage()} 
           alt={getMascotAlt()} 
