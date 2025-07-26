@@ -18,18 +18,30 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-400 via-blue-500 to-red-500 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-white rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-white rounded-full blur-lg animate-ping"></div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-300 to-white relative">
+      {/* Background Image */}
+      <div className="fixed inset-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed opacity-20"
+          style={{
+            backgroundImage: 'url(/background.png)'
+          }}
+        ></div>
       </div>
       
-      <div className="relative z-10 container mx-auto px-4 py-6">
-        <div className="transition-all duration-700 ease-in-out">
-          {renderView()}
-        </div>
+      {/* 3D Gaming Background Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2)_0%,transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.15)_0%,transparent_50%)]"></div>
+        {/* Gaming dots pattern */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '30px 30px'
+        }}></div>
+      </div>
+      
+      <div className="relative z-10 px-4 py-4">
+        {renderView()}
       </div>
     </div>
   )

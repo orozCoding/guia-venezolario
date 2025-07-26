@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
+import Mascot from './Mascot'
 
 function WordLookup({ onBack }) {
   const [word, setWord] = useState('')
@@ -61,116 +62,104 @@ function WordLookup({ onBack }) {
   }
 
   return (
-    <div className="max-w-lg mx-auto px-4">
-      {/* Back Button - Modern */}
-      <div className="mb-8">
-        <button
-          onClick={onBack}
-          className="flex items-center space-x-3 text-white/80 hover:text-white transition-all duration-300 bg-white/10 hover:bg-white/20 backdrop-blur-sm px-5 py-3 rounded-full border border-white/20 hover:border-white/40 group"
-        >
-          <span className="text-xl group-hover:animate-bounce">←</span>
-          <span className="font-medium">Volver al inicio</span>
-        </button>
+    <div className="max-w-md mx-auto px-4 py-6">
+      {/* 3D Back Button */}
+      <button
+        onClick={onBack}
+        className="mb-6 bg-gradient-to-b from-gray-400 to-gray-600 hover:from-gray-300 hover:to-gray-500 text-white font-bold py-2 px-4 rounded-xl shadow-[0_4px_0_#4b5563] hover:shadow-[0_2px_0_#4b5563] active:shadow-[0_1px_0_#4b5563] transform hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-150"
+      >
+        ← Volver
+      </button>
+
+      {/* 3D Gaming Header */}
+      <div className="text-center mb-6">
+        <div className="text-5xl mb-2">🔍</div>
+        <h2 className="text-3xl font-bold text-blue-600 drop-shadow-[0_4px_0_rgba(0,0,0,0.8)] mb-2">
+          Consulta una palabra
+        </h2>
+        <p className="text-gray-800 font-medium">
+          Escribe la palabra que no entendiste...
+        </p>
       </div>
 
-      {/* Main Card - Super Modern */}
-      <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20 relative overflow-hidden">
-        {/* Animated background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 via-transparent to-yellow-600/20 opacity-50"></div>
-        
-        {/* Header */}
-        <div className="relative text-center mb-8">
-          <div className="text-6xl mb-4 animate-pulse">🔍</div>
-          <h2 className="text-3xl sm:text-4xl text-white font-bold mb-3 drop-shadow-lg">
-            Consulta una palabra
-          </h2>
-          <p className="text-white/80 text-base px-4">
-            Escribe cualquier palabra venezolana y te explico todo sobre ella
+      {/* Look Mascot */}
+      <div className="text-center mb-6">
+        <Mascot type="look" />
+      </div>
+
+      {/* 3D Gaming Form */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <input
+            type="text"
+            value={word}
+            onChange={(e) => setWord(e.target.value)}
+            placeholder="Escribe la palabra aquí..."
+            className="w-full px-4 py-3 text-lg font-bold text-gray-800 bg-white rounded-xl border-4 border-white shadow-[0_4px_0_#d1d5db] focus:shadow-[0_2px_0_#d1d5db] focus:translate-y-0.5 transition-all duration-150 outline-none"
+            disabled={loading}
+          />
+          <p className="text-gray-700 text-sm mt-2 text-center">
+            Ej: conuco, jamonearse, totumo, caleta, sortario...
           </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="relative space-y-6">
-          <div>
-            <label htmlFor="word" className="block text-white font-medium mb-3 text-center">
-              ¿Cuál palabra no entiendes?
-            </label>
-            <input
-              type="text"
-              id="word"
-              value={word}
-              onChange={(e) => setWord(e.target.value)}
-              placeholder="Escribe la palabra aquí..."
-              className="w-full px-6 py-5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl focus:ring-4 focus:ring-yellow-400/50 focus:border-yellow-300 transition-all duration-300 text-white placeholder-white/60 text-lg font-medium shadow-lg"
-              disabled={loading}
-            />
-            <p className="text-white/60 text-sm mt-2 text-center">
-              Ej: arepa, chévere, marico, pana, chamo...
-            </p>
-          </div>
+        <button
+          type="submit"
+          disabled={loading || !word.trim()}
+          className="w-full bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-300 hover:to-yellow-500 disabled:from-gray-400 disabled:to-gray-600 text-white font-bold py-4 px-6 rounded-xl shadow-[0_6px_0_#ca8a04] hover:shadow-[0_4px_0_#ca8a04] active:shadow-[0_2px_0_#ca8a04] disabled:shadow-[0_6px_0_#6b7280] transform hover:-translate-y-1 active:translate-y-0.5 disabled:translate-y-0 transition-all duration-150 border-2 border-yellow-300 disabled:border-gray-300"
+        >
+          {loading ? (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              <span>Buscando...</span>
+            </div>
+          ) : (
+            <span className="text-lg">¡Buscar! 🤖</span>
+          )}
+        </button>
+      </form>
 
-          <button
-            type="submit"
-            disabled={loading || !word.trim()}
-            className="w-full relative overflow-hidden bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 disabled:from-gray-500 disabled:to-gray-600 text-white font-bold py-5 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 disabled:hover:scale-100 shadow-2xl hover:shadow-yellow-500/25 group"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-            {loading ? (
-              <div className="relative flex items-center justify-center space-x-3">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-                <span className="text-lg">Buscando...</span>
-              </div>
-            ) : (
-              <div className="relative flex items-center justify-center space-x-2">
-                <span className="text-lg">¡Búscala!</span>
-                <span className="text-xl group-hover:animate-bounce">🚀</span>
-              </div>
-            )}
-          </button>
-        </form>
-
-        {/* Error State - Modern */}
-        {error && (
-          <div className="relative mt-8 p-5 bg-red-500/20 backdrop-blur-sm border border-red-400/30 rounded-2xl animate-slide-up">
-            <div className="flex items-center space-x-3">
-              <span className="text-2xl">😵</span>
-              <div>
-                <p className="text-white font-medium">¡Oops! Algo salió mal</p>
-                <p className="text-white/80 text-sm">{error}</p>
-              </div>
+      {/* 3D Error State */}
+      {error && (
+        <div className="mt-6 bg-gradient-to-b from-red-400 to-red-600 text-white p-4 rounded-xl shadow-[0_4px_0_#dc2626] border-2 border-red-300">
+          <div className="flex items-center space-x-2">
+            <span className="text-xl">😵</span>
+            <div>
+              <p className="font-bold">¡Oops! Algo salió mal</p>
+              <p className="text-sm opacity-90">{error}</p>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Result - Beautiful */}
-        {result && (
-          <div className="relative mt-8 p-6 bg-white/90 backdrop-blur-sm rounded-2xl animate-fade-in shadow-xl border border-white/30">
-            <div className="flex items-center space-x-3 mb-4">
-              <span className="text-3xl">💡</span>
-              <h3 className="text-2xl font-bold text-gray-800">
-                "{word}"
-              </h3>
-            </div>
-            <div className="text-gray-700 leading-relaxed prose prose-gray max-w-none">
-              <ReactMarkdown 
-                components={{
-                  h1: ({children}) => <h1 className="text-2xl font-bold text-gray-800 mb-3">{children}</h1>,
-                  h2: ({children}) => <h2 className="text-xl font-bold text-gray-800 mb-2 mt-4">{children}</h2>,
-                  h3: ({children}) => <h3 className="text-lg font-bold text-gray-800 mb-2 mt-3">{children}</h3>,
-                  p: ({children}) => <p className="text-base mb-3 leading-relaxed">{children}</p>,
-                  strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
-                  em: ({children}) => <em className="italic text-gray-800">{children}</em>,
-                  ul: ({children}) => <ul className="list-disc pl-6 mb-3 space-y-1">{children}</ul>,
-                  ol: ({children}) => <ol className="list-decimal pl-6 mb-3 space-y-1">{children}</ol>,
-                  li: ({children}) => <li className="text-base">{children}</li>,
-                }}
-              >
-                {result}
-              </ReactMarkdown>
-            </div>
+      {/* 3D Result Card */}
+      {result && (
+        <div className="mt-6 bg-white rounded-xl shadow-[0_6px_0_#d1d5db] border-4 border-white p-4">
+          <div className="flex items-center space-x-2 mb-3">
+            <span className="text-2xl">💡</span>
+            <h3 className="text-xl font-bold text-gray-800">
+              "{word}"
+            </h3>
           </div>
-        )}
-      </div>
+          <div className="text-gray-700 prose prose-gray max-w-none">
+            <ReactMarkdown 
+              components={{
+                h1: ({children}) => <h1 className="text-xl font-bold text-gray-800 mb-2">{children}</h1>,
+                h2: ({children}) => <h2 className="text-lg font-bold text-gray-800 mb-2 mt-3">{children}</h2>,
+                h3: ({children}) => <h3 className="text-base font-bold text-gray-800 mb-1 mt-2">{children}</h3>,
+                p: ({children}) => <p className="text-sm mb-2 leading-relaxed">{children}</p>,
+                strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
+                em: ({children}) => <em className="italic text-gray-800">{children}</em>,
+                ul: ({children}) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
+                ol: ({children}) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
+                li: ({children}) => <li className="text-sm">{children}</li>,
+              }}
+            >
+              {result}
+            </ReactMarkdown>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
