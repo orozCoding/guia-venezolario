@@ -18,8 +18,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-blue-50 to-red-50">
+      <div className="container mx-auto px-3 py-4">
         <div className="transition-all duration-500 ease-in-out">
           {renderView()}
         </div>

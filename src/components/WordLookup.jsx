@@ -60,28 +60,33 @@ function WordLookup({ onBack }) {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="mb-8">
+    <div className="max-w-md mx-auto px-2">
+      {/* Back Button */}
+      <div className="mb-6">
         <button
           onClick={onBack}
-          className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors duration-200"
+          className="flex items-center space-x-2 text-yellow-700 hover:text-yellow-800 transition-colors duration-200 bg-yellow-50 hover:bg-yellow-100 px-3 py-2 rounded-full"
         >
-          <span className="text-xl">←</span>
-          <span>Volver al inicio</span>
+          <span className="text-lg">←</span>
+          <span className="text-sm font-medium">Inicio</span>
         </button>
       </div>
 
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl text-gray-900 mb-4">Consulta una palabra</h2>
-          <p className="text-gray-600">
-            Escribe una palabra venezolana para conocer su significado y contexto
+      {/* Main Card */}
+      <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-yellow-200/50">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <div className="text-4xl mb-3">🔍</div>
+          <h2 className="text-2xl sm:text-3xl text-yellow-800 mb-2">Consulta una palabra</h2>
+          <p className="text-sm text-yellow-700 opacity-90 px-2">
+            Escribe una palabra venezolana para conocer su significado
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="word" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="word" className="block text-sm font-medium text-yellow-800 mb-2">
               Palabra venezolana
             </label>
             <input
@@ -90,7 +95,7 @@ function WordLookup({ onBack }) {
               value={word}
               onChange={(e) => setWord(e.target.value)}
               placeholder="Ej: arepa, chévere, marico..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-4 border border-yellow-300 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-200 bg-white/80 text-gray-800 placeholder-yellow-600/60"
               disabled={loading}
             />
           </div>
@@ -98,7 +103,7 @@ function WordLookup({ onBack }) {
           <button
             type="submit"
             disabled={loading || !word.trim()}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 disabled:hover:scale-100"
+            className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 disabled:from-gray-300 disabled:to-gray-400 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-105 disabled:hover:scale-100 shadow-lg disabled:shadow-sm"
           >
             {loading ? (
               <div className="flex items-center justify-center space-x-2">
@@ -111,18 +116,26 @@ function WordLookup({ onBack }) {
           </button>
         </form>
 
+        {/* Error State */}
         {error && (
-          <div className="mt-6 p-4 bg-red-100 border border-red-300 rounded-lg">
-            <p className="text-red-700">{error}</p>
+          <div className="mt-6 p-4 bg-red-100 border border-red-300 rounded-2xl">
+            <div className="flex items-center space-x-2">
+              <span className="text-red-500">⚠️</span>
+              <p className="text-red-700 text-sm">{error}</p>
+            </div>
           </div>
         )}
 
+        {/* Result */}
         {result && (
-          <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-lg animate-fade-in">
-            <h3 className="text-lg font-semibold text-green-800 mb-3">
-              "{word}"
-            </h3>
-            <div className="text-green-700 whitespace-pre-wrap leading-relaxed">
+          <div className="mt-6 p-5 bg-white/90 border border-yellow-200 rounded-2xl animate-fade-in shadow-sm">
+            <div className="flex items-center space-x-2 mb-3">
+              <span className="text-lg">💡</span>
+              <h3 className="text-lg font-semibold text-yellow-800">
+                "{word}"
+              </h3>
+            </div>
+            <div className="text-gray-700 whitespace-pre-wrap leading-relaxed text-sm">
               {result}
             </div>
           </div>
