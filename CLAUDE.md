@@ -5,7 +5,7 @@ This project is IN SPANISH for the end-user. Every string user-visible should be
 Guía Venezolario is a comprehensive Venezuelan guide built with React and Tailwind CSS. The app is designed to be hosted on Netlify and serves as a resource for Venezuelan-related information.
 
 ## Tech Stack
-- **Frontend**: React 18+ with TypeScript
+- **Frontend**: React 18+ without TypeScript
 - **Styling**: Tailwind CSS (latest version)
 - **Build Tool**: Vite
 - **Hosting**: Netlify
@@ -29,7 +29,7 @@ Guía Venezolario is a comprehensive Venezuelan guide built with React and Tailw
 ```
 
 ## Features
-- Responsive design with Tailwind CSS
+- Mobile first Responsive design with Tailwind CSS
 - Smooth animations specially on section transitions
 - Clean, centered layout
 - Ready for Netlify deployment
@@ -53,10 +53,42 @@ Add the following environment variable in Netlify:
 
 **Important**: Vite requires environment variables to be prefixed with `VITE_` to be accessible in the client-side code.
 
+## App Features
+
+### Main Features
+1. **Word Lookup ("Consulta una palabra")**
+   - Users can input Venezuelan words
+   - Gemini AI provides detailed explanations including:
+     - Clear definition
+     - Venezuelan context and usage
+     - Etymology/history when relevant
+     - Example sentences
+
+2. **Word Guessing ("Adivinar palabra")**
+   - Users can input multiple hints/clues
+   - Users specify the number of letters (1-20)
+   - Gemini AI generates 5 possible Venezuelan word suggestions
+   - Interactive stepper for letter count
+
+### User Interface
+- Mobile-first responsive design
+- Smooth animations and transitions
+- Clean, intuitive navigation
+- Custom fonts: Luckiest Guy (headings) + Rubik (body)
+- Glass-morphism design with backdrop blur effects
+
+### Technical Implementation
+- Component-based architecture
+- State management with React hooks
+- Direct Gemini API integration
+- Error handling and loading states
+- Animated feedback for user actions
+
 ## Notes for Claude
 - The app name is "Guía Venezolario"
-- Main page shows a centered "Hello World" with the app name
+- Complement for mobile app "Venezolario" (word guessing game)
+- All user-visible text in Spanish
 - Uses latest React and Tailwind CSS versions (no TypeScript)
 - No database required - static site
 - Optimized for Netlify hosting
-- Environment variables are displayed on home page for testing
+- Gemini API key required for functionality

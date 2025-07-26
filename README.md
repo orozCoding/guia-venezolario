@@ -27,7 +27,7 @@ A comprehensive Venezuelan guide built with React, TypeScript, and Tailwind CSS.
 
 ## Tech Stack
 
-- React 18+ with TypeScript
+- React 18+ without TypeScript
 - Vite for build tooling
 - Tailwind CSS for styling
 - Ready for Netlify deployment
