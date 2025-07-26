@@ -216,7 +216,7 @@ Respuesta:`
                   <span className="text-lg">Pensando... 🧠</span>
                 </div>
               ) : (
-                <span className="font-bold">¡Dame las respuestas! 🫣</span>
+                <span className="font-bold">¡Dame la respuesta! 🫣</span>
               )}
             </button>
           </form>
