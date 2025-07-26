@@ -28,15 +28,13 @@ Since this app uses client-side API calls with `VITE_GEMINI_API_KEY`, the API ke
    
 2. Click **"Add an item"** and add these domains:
    ```
-   https://your-app-name.netlify.app/*
+   https://venezolario.netlify.app/*
    https://your-custom-domain.com/*
-   http://localhost:5173/*
-   http://localhost:3000/*
    ```
 
-3. Replace `your-app-name` with your actual Netlify app name
-4. Add your custom domain if you have one
-5. Include localhost URLs for development
+3. Replace `your-custom-domain.com` with your actual custom domain if you have one
+4. **IMPORTANT**: Do NOT include localhost URLs in production API keys for security reasons
+5. For development, create a separate API key with localhost restrictions, or use a staging environment
 
 ### 4. API Restrictions (Optional but Recommended)
 
@@ -88,7 +86,7 @@ VITE_GEMINI_API_KEY=your_actual_api_key_here
 
 - **403 Forbidden**: Domain not in allowlist or restrictions too strict
 - **API key not working**: Check if restrictions are properly configured
-- **Localhost not working**: Make sure to include localhost URLs in restrictions
+- **Development issues**: Use a separate API key for localhost development
 
 ### Testing Commands
 
@@ -109,6 +107,8 @@ npm run preview
 4. ✅ **Rotate keys** periodically
 5. ✅ **Never commit API keys** to public repositories
 6. ✅ **Use environment variables** for all secrets
+7. ✅ **Use separate API keys** for development (localhost) and production
+8. ✅ **Never include localhost** in production API key restrictions
 
 ## Support
 
